@@ -1,13 +1,14 @@
 main {
-  display: flex;
+	display: flex;
+	margin-top: 100px;
 }
 
 .mole {
-  transition: 100ms;
+	transition: 100ms;
 }
 
 .showing {
-  transform: translateY(-50px);
+	transform: translateY(-50px);
 }
 
 /*# sourceMappingURL=index.css.map */

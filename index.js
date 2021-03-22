@@ -1,8 +1,12 @@
-const body = document.body;
+const TEN_SECONDS = 10000;
 
-body.addEventListener('keypress', (e) => {
-	checkMoleIsShowing(e.key);
-});
+let score = 0;
+let isGameOver = true;
+
+const body = document.body;
+const scoreDisplay = document.querySelector('#scoreDisplay');
+const startBtn = document.querySelector('#start');
+const moles = document.querySelectorAll('.mole');
 
 const getRandomNumber = (min, max) => Math.floor(Math.random() * max) + min;
 
@@ -23,25 +27,67 @@ console.log(getRandomNumber(150, 650));
 // selectRandomMoleAndShow = () => {
 //	if (!mole.classlist.contains(showing))
 // show()
-// setTimout(hide, randomSeconds)
+// setTimout(hideMole, randomSeconds)
 // }
 
 // if key pressed => score point and hide mole
 
-const checkMoleIsShowing = (key) => {
-	const whackedMole = document.querySelector(`#${key}`);
-	if (whackedMole && whackedMole.classList.contains('showing')) {
-		// WHACK
-		whackMole(whackedMole);
-		// HIDE
-	} else hideMole(whackedMole);
+// SCORE LOGIC
+
+const updateScore = (num) => {
+	scoreDisplay.textContent = score;
 };
 
-const whackMole = (mole) => {
-	// score++
-	hideMole(mole);
+// MOLE LOGIC
+
+const checkMoleIsShowing = (mole) => mole && mole.classList.contains('showing');
+
+const showMole = (mole) => {
+	mole.classList.add('showing');
 };
 
 const hideMole = (mole) => {
 	mole.classList.remove('showing');
 };
+
+const whackMole = (mole) => {
+	score++;
+	hideMole(mole);
+	updateScore(score);
+};
+
+const handleKeypress = (e) => {
+	const moleToWhack = document.querySelector(`#${e.key}`);
+	if (checkMoleIsShowing(moleToWhack)) {
+		whackMole(moleToWhack);
+	}
+};
+
+// GAME LOGIC
+
+const showMoles = (molesArray) => {
+	const chosenMole = molesArray[Math.floor(Math.random() * molesArray.length)];
+	if (!checkMoleIsShowing(chosenMole)) {
+		showMole(chosenMole);
+	} else {
+		showMoles(moles);
+		console.log('duplicate mole picked');
+	}
+};
+
+const startGame = () => {
+	isGameOver = false;
+	const id = setInterval(showMoles, 500, moles);
+	setTimeout(() => {
+		isGameOver = true;
+		clearInterval(id);
+		console.log('game over');
+	}, TEN_SECONDS);
+};
+
+const handleStartBtnClick = (e) => {
+	startGame();
+};
+
+body.addEventListener('keypress', handleKeypress);
+startBtn.addEventListener('click', handleStartBtnClick);
