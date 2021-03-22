@@ -1,3 +1,13 @@
+main {
+  display: flex;
+}
 
+.mole {
+  transition: 100ms;
+}
+
+.showing {
+  transform: translateY(-50px);
+}
 
 /*# sourceMappingURL=index.css.map */
