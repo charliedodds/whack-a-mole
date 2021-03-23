@@ -1,14 +1,24 @@
-main {
+.moles-wrapper {
 	display: flex;
 	flex-wrap: wrap;
 	margin-top: 100px;
 	width: 50%;
 }
 
-.mole {
-	transition: 200ms;
+.mole-container {
+	width: 33%;
 }
 
-.showing {
+.mole {
+	transition: 200ms;
+	width: 100%;
+	margin-bottom: 50px;
+}
+
+.mole.showing {
 	transform: translateY(-50px);
+}
+
+.hidden {
+	display: none;
 }

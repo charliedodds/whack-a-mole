@@ -10,60 +10,70 @@
 	<body>
 		<header>
 			<h1>Whack-a-Mole</h1>
-			<h2>How to play:</h2>
-			<p>When a mole pops up, press its key to send it back from whence it came</p>
-			<p>Hit the start button to begin</p>
-			<p>Score: <span id="scoreDisplay">0</span></p>
-			<button id="start">Start</button>
 		</header>
-		<main>
-			<section class="mole-container">
-				<img
-					id="q"
-					class="mole"
-					src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
-					alt="mole"
-				/>
+		<section class="device-decider">
+			<h2>Which device</h2>
+			<button id="mobileBtn">mobile/tablet</button>
+			<button id="desktopBtn">desktop</button>
+		</section>
+		<main class="hidden">
+			<section class="instructions">
+				<h2>How to play:</h2>
+				<p>When a mole pops up, <span class="device-span">press its key</span> to send it back from whence it came</p>
+				<p>Hit the start button to begin</p>
+				<p>Score: <span id="scoreDisplay">0</span></p>
+				<p>Playing on <span id="deviceDisplay"></span></p>
+				<button id="start">Start</button> <button id="changeDevice">change device</button>
 			</section>
-			<section class="mole-container">
-				<img
-					id="w"
-					class="mole"
-					src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
-					alt="mole"
-				/>
-			</section>
-			<section class="mole-container">
-				<img
-					id="e"
-					class="mole"
-					src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
-					alt="mole"
-				/>
-			</section>
-			<section class="mole-container">
-				<img
-					id="a"
-					class="mole"
-					src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
-					alt="mole"
-				/>
-			</section>
-			<section class="mole-container">
-				<img
-					id="s"
-					class="mole"
-					src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
-					alt="mole"
-				/>
-			</section>
-			<section class="mole-container">
-				<img
-					id="d"
-					class="mole"
-					src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
-					alt="mole"
-				/>
+			<section class="moles-wrapper">
+				<section class="mole-container">
+					<img
+						id="q"
+						class="mole"
+						src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
+						alt="mole"
+					/>
+				</section>
+				<section class="mole-container">
+					<img
+						id="w"
+						class="mole"
+						src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
+						alt="mole"
+					/>
+				</section>
+				<section class="mole-container">
+					<img
+						id="e"
+						class="mole"
+						src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
+						alt="mole"
+					/>
+				</section>
+				<section class="mole-container">
+					<img
+						id="a"
+						class="mole"
+						src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
+						alt="mole"
+					/>
+				</section>
+				<section class="mole-container">
+					<img
+						id="s"
+						class="mole"
+						src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
+						alt="mole"
+					/>
+				</section>
+				<section class="mole-container">
+					<img
+						id="d"
+						class="mole"
+						src="https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg"
+						alt="mole"
+					/>
+				</section>
 			</section>
 		</main>
 		<script src="index.js"></script>
