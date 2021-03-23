@@ -1,22 +1,38 @@
+body {
+	background-color: #24471e;
+}
+
 .moles-wrapper {
-	display: flex;
-	flex-wrap: wrap;
-	margin-top: 100px;
-	width: 50%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	margin: 100px auto 0;
+	width: 100%;
 }
 
 .mole-container {
-	width: 33%;
-}
-
-.mole {
-	transition: 200ms;
-	width: 80%;
 	margin-bottom: 50px;
-}
-
-.mole.showing {
-	transform: translateY(-50px);
+	height: 500px;
+	position: relative;
+	img {
+		width: 100%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+	.mole {
+		top: 80%;
+		display: block;
+		transition: 200ms cubic-bezier(0, 0, 0.5, 1);
+		width: 60%;
+		margin: 0 auto;
+		&.showing {
+			top: 50%;
+		}
+	}
+	.grass {
+		top: 100%;
+	}
 }
 
 .hidden {
