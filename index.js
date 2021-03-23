@@ -20,6 +20,7 @@ const deviceDisplay = document.querySelector('#deviceDisplay');
 const startBtn = document.querySelector('#start');
 const changeDeviceBtn = document.querySelector('#changeDevice');
 const main = document.querySelector('main');
+const deviceSpan = document.querySelector('.device-span');
 const moles = document.querySelectorAll('.mole');
 
 const handleChangeBtnClick = () => {
@@ -37,6 +38,7 @@ const setUpGameForMobile = () => {
 	deviceDisplay.innerText = device;
 	main.classList.remove('hidden');
 	deviceDecider.classList.add('hidden');
+	deviceSpan.innerText = 'whack (tap) it';
 	body.removeEventListener('keypress', handleKeypress);
 	moles.forEach((mole) => {
 		mole.addEventListener('click', handleMoleClick);
@@ -50,6 +52,7 @@ const handleMobileBtnClick = () => {
 const setUpGameForDesktop = () => {
 	device = 'desktop';
 	deviceDisplay.innerText = device;
+	deviceSpan.innerText = 'whack its key';
 	main.classList.remove('hidden');
 	deviceDecider.classList.add('hidden');
 	moles.forEach((mole) => {
