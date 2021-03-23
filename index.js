@@ -1,4 +1,7 @@
 const TEN_SECONDS = 10000;
+const MIN_TIME = 150;
+const MAX_TIME = 650;
+const showingClasses = ['show-fast', 'show-medium', 'show-slow'];
 
 let score = 0;
 let isGameOver = true;
@@ -34,7 +37,7 @@ console.log(getRandomNumber(150, 650));
 
 // SCORE LOGIC
 
-const updateScore = (num) => {
+const updateScoreDisplay = () => {
 	scoreDisplay.textContent = score;
 };
 
@@ -42,18 +45,20 @@ const updateScore = (num) => {
 
 const checkMoleIsShowing = (mole) => mole && mole.classList.contains('showing');
 
+const getRandomShowClass = () => showingClasses[Math.floor(Math.random() * showingClasses.length)];
+
 const showMole = (mole) => {
 	mole.classList.add('showing');
 };
 
 const hideMole = (mole) => {
-	mole.classList.remove('showing');
+	mole.classList.remove([...mole.classList].filter((className) => className !== 'mole')[0]);
 };
 
 const whackMole = (mole) => {
 	score++;
 	hideMole(mole);
-	updateScore(score);
+	updateScoreDisplay(score);
 };
 
 const handleKeypress = (e) => {
@@ -69,23 +74,36 @@ const showMoles = (molesArray) => {
 	const chosenMole = molesArray[Math.floor(Math.random() * molesArray.length)];
 	if (!checkMoleIsShowing(chosenMole)) {
 		showMole(chosenMole);
+		setTimeout(hideMole, 1000, chosenMole);
 	} else {
 		showMoles(moles);
 		console.log('duplicate mole picked');
 	}
 };
 
-const startGame = () => {
+const resetGame = () => {
 	isGameOver = false;
-	const id = setInterval(showMoles, 500, moles);
+	score = 0;
+	updateScoreDisplay(score);
+};
+
+const endGame = (intervalID) => {
+	isGameOver = true;
+	clearInterval(intervalID);
+	moles.forEach((mole) => hideMole(mole));
+	console.log('game over');
+};
+
+const startGame = () => {
+	resetGame();
+	isGameOver = false;
+	const intervalID = setInterval(showMoles, 500, moles);
 	setTimeout(() => {
-		isGameOver = true;
-		clearInterval(id);
-		console.log('game over');
+		endGame(intervalID);
 	}, TEN_SECONDS);
 };
 
-const handleStartBtnClick = (e) => {
+const handleStartBtnClick = () => {
 	startGame();
 };
 
