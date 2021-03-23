@@ -52,7 +52,7 @@ const handleMobileBtnClick = () => {
 const setUpGameForDesktop = () => {
 	device = 'desktop';
 	deviceDisplay.innerText = device;
-	deviceSpan.innerText = 'whack its key';
+	deviceSpan.innerText = 'whack its key on your keyboard';
 	main.classList.remove('hidden');
 	deviceDecider.classList.add('hidden');
 	moles.forEach((mole) => {
