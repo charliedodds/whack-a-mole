@@ -2,10 +2,8 @@ const gameTime = 10000;
 const minTime = 200;
 const maxTime = 1900;
 
-const happyMoleURL =
-	'https://image.shutterstock.com/image-vector/minimalist-colorful-mole-on-orange-260nw-1493935910.jpg';
-const angryMoleURL =
-	'https://cdn.vox-cdn.com/thumbor/kW9uPbhSLGZESG0TCZz9RmedCMc=/1400x1050/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19739030/Mr._Resetti.jpg';
+const happyMoleURL = './happy-mole.svg';
+const angryMoleURL = './angry-mole.svg';
 
 let score = 0;
 let isGameOver = true;
