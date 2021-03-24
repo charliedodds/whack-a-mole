@@ -19,7 +19,7 @@ const startBtn = document.querySelector('#start');
 const changeDeviceBtn = document.querySelector('#changeDevice');
 const main = document.querySelector('main');
 const deviceSpan = document.querySelector('.device-span');
-const moles = document.querySelectorAll('.mole');
+const moles = document.querySelectorAll('.mole-container');
 const keys = document.querySelectorAll('.key');
 
 const handleChangeBtnClick = () => {
@@ -86,16 +86,16 @@ const updateScoreDisplay = () => {
 const checkMoleIsShowing = (mole) => mole && mole.classList.contains('showing');
 
 const showMole = (mole) => {
-	mole.src = happyMoleURL;
+	mole.querySelector('.mole').src = happyMoleURL;
 	mole.classList.add('showing');
 };
 
 const hideMole = (mole) => {
-	mole.classList.remove([...mole.classList].filter((className) => className !== 'mole')[0]);
+	mole.classList.remove([...mole.classList].filter((className) => className !== 'mole-container')[0]);
 };
 
 const whackMole = (mole) => {
-	mole.src = angryMoleURL;
+	mole.querySelector('.mole').src = angryMoleURL;
 	score++;
 	hideMole(mole);
 	updateScoreDisplay(score);
@@ -112,7 +112,7 @@ const pressKey = (key) => {
 
 const handleKeypress = (e) => {
 	const moleToWhack = document.querySelector(`#${e.key}`);
-	const key = moleToWhack.closest('.mole-container').querySelector('.key');
+	const key = moleToWhack.querySelector('.key');
 	if (checkMoleIsShowing(moleToWhack)) {
 		whackMole(moleToWhack);
 	}
@@ -120,7 +120,7 @@ const handleKeypress = (e) => {
 };
 
 const handleMoleClick = (e) => {
-	const moleToWhack = e.target;
+	const moleToWhack = e.target.closest('.mole-container');
 	if (checkMoleIsShowing(moleToWhack)) {
 		whackMole(moleToWhack);
 	}
