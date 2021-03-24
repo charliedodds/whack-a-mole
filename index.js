@@ -1,9 +1,10 @@
 const gameTime = 10000;
 const minTime = 400;
 const maxTime = 2900;
+const moleKeys = ['q', 'w', 'e', 'a', 's', 'd'];
 
-const happyMoleURL = './happy-mole.svg';
-const angryMoleURL = './angry-mole.svg';
+const happyMoleURL = './assets/happy-mole.svg';
+const angryMoleURL = './assets/angry-mole.svg';
 
 let score = 0;
 let isGameOver = true;
@@ -111,12 +112,17 @@ const pressKey = (key) => {
 };
 
 const handleKeypress = (e) => {
-	const moleToWhack = document.querySelector(`#${e.key}`);
-	const key = moleToWhack.querySelector('.key');
-	if (checkMoleIsShowing(moleToWhack)) {
-		whackMole(moleToWhack);
+	if (moleKeys.includes(e.key)) {
+		const moleToWhack = document.querySelector(`#${e.key}`);
+		const key = moleToWhack.querySelector('.key');
+		if (checkMoleIsShowing(moleToWhack)) {
+			whackMole(moleToWhack);
+		} else if (!isGameOver) {
+			score--;
+			updateScoreDisplay(score);
+		}
+		pressKey(key);
 	}
-	pressKey(key);
 };
 
 const handleMoleClick = (e) => {
