@@ -1,6 +1,6 @@
 const gameTime = 10000;
 const minTime = 200;
-const maxTime = 1900;
+const maxTime = 2900;
 
 const happyMoleURL = './happy-mole.svg';
 const angryMoleURL = './angry-mole.svg';
@@ -36,7 +36,7 @@ const setUpGameForMobile = () => {
 	deviceDisplay.innerText = device;
 	main.classList.remove('hidden');
 	deviceDecider.classList.add('hidden');
-	deviceSpan.innerText = 'whack (tap) it';
+	deviceSpan.innerText = 'whack (tap) its head';
 	body.removeEventListener('keypress', handleKeypress);
 	moles.forEach((mole) => {
 		mole.addEventListener('click', handleMoleClick);
