@@ -374,14 +374,18 @@ header h1 {
 
 .instructions {
   margin: 0 1rem;
+  text-align: center;
 }
 .instructions h2 {
-  text-align: center;
   margin: 1rem 0;
 }
 .instructions p {
   margin: 1rem 0;
-  text-align: center;
+}
+
+button {
+  display: inline-block;
+  margin: auto;
 }
 
 .hidden {
