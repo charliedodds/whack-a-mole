@@ -1,6 +1,32 @@
-body {
-	background-color: #24471e;
-}
+// abstracts
+
+@import './abstracts/variables';
+
+// vendors
+
+@import './vendors/normalize';
+
+// base
+
+@import './base/reset';
+@import './base/typography';
+
+// layout
+
+@import './layout/body';
+@import './layout/header';
+@import './layout/main';
+@import './layout/moles-wrapper';
+
+// components
+
+@import './components/instructions';
+@import './components/buttons';
+@import './components/mole';
+
+// themes
+
+@import './themes/theme';
 
 .moles-wrapper {
 	display: grid;
@@ -57,8 +83,4 @@ body {
 			display: none;
 		}
 	}
-}
-
-.hidden {
-	display: none;
 }
