@@ -1,5 +1,5 @@
 const gameTime = 10000;
-const minTime = 200;
+const minTime = 400;
 const maxTime = 2900;
 
 const happyMoleURL = './happy-mole.svg';
@@ -20,6 +20,7 @@ const changeDeviceBtn = document.querySelector('#changeDevice');
 const main = document.querySelector('main');
 const deviceSpan = document.querySelector('.device-span');
 const moles = document.querySelectorAll('.mole');
+const keys = document.querySelectorAll('.key');
 
 const handleChangeBtnClick = () => {
 	if (device === 'mobile') {
@@ -41,6 +42,9 @@ const setUpGameForMobile = () => {
 	moles.forEach((mole) => {
 		mole.addEventListener('click', handleMoleClick);
 	});
+	keys.forEach((key) => {
+		key.classList.add('hidden');
+	});
 };
 
 const handleMobileBtnClick = () => {
@@ -55,6 +59,9 @@ const setUpGameForDesktop = () => {
 	deviceDecider.classList.add('hidden');
 	moles.forEach((mole) => {
 		mole.removeEventListener('click', handleMoleClick);
+	});
+	keys.forEach((key) => {
+		key.classList.remove('hidden');
 	});
 	body.addEventListener('keypress', handleKeypress);
 };
@@ -94,11 +101,22 @@ const whackMole = (mole) => {
 	updateScoreDisplay(score);
 };
 
+const pressKey = (key) => {
+	if (!isGameOver) {
+		key.classList.add('pressed');
+		setTimeout(() => {
+			key.classList.remove('pressed');
+		}, 200);
+	}
+};
+
 const handleKeypress = (e) => {
 	const moleToWhack = document.querySelector(`#${e.key}`);
+	const key = moleToWhack.closest('.mole-container').querySelector('.key');
 	if (checkMoleIsShowing(moleToWhack)) {
 		whackMole(moleToWhack);
 	}
+	pressKey(key);
 };
 
 const handleMoleClick = (e) => {

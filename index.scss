@@ -4,14 +4,14 @@ body {
 
 .moles-wrapper {
 	display: grid;
+	gap: 1rem;
 	grid-template-columns: 1fr 1fr 1fr;
 	margin: 100px auto 0;
-	width: 100%;
+	max-width: 500px;
 }
 
 .mole-container {
 	margin-bottom: 50px;
-	height: 500px;
 	position: relative;
 	img {
 		width: 100%;
@@ -32,6 +32,22 @@ body {
 	}
 	.grass {
 		position: relative;
+	}
+	.key {
+		font-size: 1.25rem;
+		position: absolute;
+		top: 80%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 50px;
+		height: 50px;
+		border-radius: 5px;
+		border: 0;
+		box-shadow: 0 6px 0 6px #adadad;
+		&.pressed {
+			top: calc(80% + 4px);
+			box-shadow: 0 2px 0 6px #adadad;
+		}
 	}
 }
 
