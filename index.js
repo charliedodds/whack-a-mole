@@ -1,4 +1,4 @@
-const gameTime = 10000;
+const gameTime = 30000;
 const minTime = 300;
 const maxTime = 1900;
 const moleKeys = ['q', 'w', 'e', 'a', 's', 'd'];
@@ -14,6 +14,7 @@ const body = document.body;
 const deviceDecider = document.querySelector('.device-decider');
 const mobileBtn = document.querySelector('#mobileBtn');
 const keyboardBtn = document.querySelector('#keyboardBtn');
+const gamePlayingScoreDisplay = document.querySelector('.game-playing-score');
 const scoreDisplay = document.querySelector('#scoreDisplay');
 const deviceDisplay = document.querySelector('#deviceDisplay');
 const howToPlaySection = document.querySelector('.how-to-play');
@@ -24,6 +25,8 @@ const startBtn = document.querySelector('#start');
 const swapDeviceBtn = document.querySelector('#swapDevice');
 const main = document.querySelector('main');
 const deviceSpan = document.querySelector('.device-span');
+const gameOverHeader = document.querySelector('.game-over');
+const gameOverDisplay = document.querySelector('#gameOverDisplay');
 const moles = document.querySelectorAll('.mole-container');
 const keys = document.querySelectorAll('.key');
 
@@ -158,7 +161,6 @@ const showMoles = (molesArray) => {
 		setTimeout(hideMole, getRandomNumber(minTime, maxTime), chosenMole);
 	} else {
 		showMoles(moles);
-		console.log('duplicate mole picked');
 	}
 };
 
@@ -170,11 +172,14 @@ const resetMoles = (molesArray) => {
 };
 
 const endGame = (intervalID) => {
+	gameOverHeader.classList.remove('hidden');
+	gamePlayingScoreDisplay.classList.add('hidden');
+	gameOverDisplay.innerText = score;
 	startBtn.disabled = false;
 	isGameOver = true;
 	clearInterval(intervalID);
 	resetMoles(moles);
-	console.log('game over');
+	// show game over!
 };
 
 const scrollToBottom = () => {
@@ -182,6 +187,8 @@ const scrollToBottom = () => {
 };
 
 const startGame = () => {
+	gameOverHeader.classList.add('hidden');
+	gamePlayingScoreDisplay.classList.remove('hidden');
 	scrollToBottom();
 	howToPlayBtnContainer.classList.remove('hidden');
 	howToPlaySection.classList.add('hidden');
