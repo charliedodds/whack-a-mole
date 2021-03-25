@@ -1,6 +1,6 @@
 const gameTime = 10000;
-const minTime = 400;
-const maxTime = 2900;
+const minTime = 300;
+const maxTime = 1900;
 const moleKeys = ['q', 'w', 'e', 'a', 's', 'd'];
 
 const happyMoleURL = './assets/happy-mole.svg';
@@ -18,6 +18,7 @@ const scoreDisplay = document.querySelector('#scoreDisplay');
 const deviceDisplay = document.querySelector('#deviceDisplay');
 const howToPlaySection = document.querySelector('.how-to-play');
 const howToPlayBtnContainer = document.querySelector('.how-to-play-btn-container');
+const deductPointsPara = document.querySelector('.how-to-play__deduct-points');
 const howToPlayBtn = document.querySelector('#howToPlayBtn');
 const startBtn = document.querySelector('#start');
 const swapDeviceBtn = document.querySelector('#swapDevice');
@@ -52,6 +53,7 @@ const setUpGameForMobile = () => {
 	deviceDisplay.innerText = device;
 	main.classList.remove('hidden');
 	deviceDecider.classList.add('hidden');
+	deductPointsPara.classList.add('hidden');
 	deviceSpan.innerText = 'whack (tap) its head';
 	body.removeEventListener('keypress', handleKeypress);
 	moles.forEach((mole) => {
@@ -71,6 +73,7 @@ const setUpGameForKeyboard = () => {
 	deviceDisplay.innerText = device;
 	deviceSpan.innerText = 'whack its key on your keyboard';
 	main.classList.remove('hidden');
+	deductPointsPara.classList.remove('hidden');
 	deviceDecider.classList.add('hidden');
 	moles.forEach((mole) => {
 		mole.removeEventListener('click', handleMoleClick);
