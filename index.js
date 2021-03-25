@@ -6,10 +6,6 @@ const moleKeys = ['q', 'w', 'e', 'a', 's', 'd'];
 const happyMoleURL = './assets/happy-mole.svg';
 const angryMoleURL = './assets/angry-mole.svg';
 
-let score = 0;
-let isGameOver = true;
-let device;
-
 const body = document.body;
 const deviceDecider = document.querySelector('.device-decider');
 const mobileBtn = document.querySelector('#mobileBtn');
@@ -31,6 +27,16 @@ const gameOverDisplay = document.querySelector('#gameOverDisplay');
 const moles = document.querySelectorAll('.mole-container');
 const keys = document.querySelectorAll('.key');
 
+let score = 0;
+let isGameOver = true;
+let device;
+
+const scrollToBottom = () => {
+	window.scrollTo(0, body.scrollHeight);
+};
+
+const getRandomNumber = (min, max) => Math.floor(Math.random() * max) + min;
+
 const hideElements = (...args) => {
 	args.forEach((arg) => {
 		arg.classList.add('hidden');
@@ -43,70 +49,14 @@ const showElements = (...args) => {
 	});
 };
 
-const handleHowToPlayBtnClick = () => {
-	hideElements(howToPlayBtnContainer);
-	showElements(howToPlaySection);
+const updateDisplay = (displayToUpdate, value) => {
+	displayToUpdate.innerText = value;
 };
 
-const handleSwapBtnClick = () => {
-	if (device === 'tap/click') {
-		setUpGameForKeyboard();
-	} else {
-		setUpGameForMobile();
-	}
-};
-
-const setUpGameForMobile = () => {
-	hideElements(headerMoleContainer);
-	device = 'tap/click';
-	deviceDisplay.innerText = device;
-	main.classList.remove('hidden');
-	deviceDecider.classList.add('hidden');
-	deductPointsPara.classList.add('hidden');
-	deviceSpan.innerText = 'whack (tap) its head';
-	body.removeEventListener('keypress', handleKeypress);
-	moles.forEach((mole) => {
-		mole.addEventListener('click', handleMoleClick);
-	});
-	keys.forEach((key) => {
-		key.classList.add('hidden');
-	});
-};
-
-const handleMobileBtnClick = () => {
-	setUpGameForMobile();
-};
-
-const setUpGameForKeyboard = () => {
-	hideElements(headerMoleContainer);
-	device = 'keyboard';
-	deviceDisplay.innerText = device;
-	deviceSpan.innerText = 'whack its key on your keyboard';
-	main.classList.remove('hidden');
-	deductPointsPara.classList.remove('hidden');
-	deviceDecider.classList.add('hidden');
-	moles.forEach((mole) => {
-		mole.removeEventListener('click', handleMoleClick);
-	});
-	keys.forEach((key) => {
-		key.classList.remove('hidden');
-	});
-	body.addEventListener('keypress', handleKeypress);
-};
-
-const handleKeyboardBtnClick = () => {
-	setUpGameForKeyboard();
-};
-
-mobileBtn.addEventListener('click', handleMobileBtnClick);
-keyboardBtn.addEventListener('click', handleKeyboardBtnClick);
-
-const getRandomNumber = (min, max) => Math.floor(Math.random() * max) + min;
-
-// SCORE LOGIC
-
-const updateScoreDisplay = () => {
-	scoreDisplay.textContent = score;
+const updateDeviceDisplay = (whacker) => {
+	device = whacker;
+	updateDisplay(deviceDisplay, device);
+	updateDisplay(deviceSpan, whacker === 'tap' ? 'whack (tap) its head' : 'whack its key on your keyboard');
 };
 
 // MOLE LOGIC
@@ -119,14 +69,14 @@ const showMole = (mole) => {
 };
 
 const hideMole = (mole) => {
-	mole.classList.remove([...mole.classList].filter((className) => className !== 'mole-container')[0]);
+	mole.classList.remove('showing');
 };
 
 const whackMole = (mole) => {
 	mole.querySelector('.mole').src = angryMoleURL;
 	score++;
 	hideMole(mole);
-	updateScoreDisplay(score);
+	updateDisplay(scoreDisplay, score);
 };
 
 const pressKey = (key) => {
@@ -137,29 +87,6 @@ const pressKey = (key) => {
 		}, 200);
 	}
 };
-
-const handleKeypress = (e) => {
-	if (moleKeys.includes(e.key)) {
-		const moleToWhack = document.querySelector(`#${e.key}`);
-		const key = moleToWhack.querySelector('.key');
-		if (checkMoleIsShowing(moleToWhack)) {
-			whackMole(moleToWhack);
-		} else if (!isGameOver) {
-			score--;
-			updateScoreDisplay(score);
-		}
-		pressKey(key);
-	}
-};
-
-const handleMoleClick = (e) => {
-	const moleToWhack = e.target.closest('.mole-container');
-	if (checkMoleIsShowing(moleToWhack)) {
-		whackMole(moleToWhack);
-	}
-};
-
-// GAME LOGIC
 
 const showMoles = (molesArray) => {
 	const chosenMole = molesArray[Math.floor(Math.random() * molesArray.length)];
@@ -178,19 +105,36 @@ const resetMoles = (molesArray) => {
 	});
 };
 
+// GAME LOGIC
+
+const setUpGameForMobile = () => {
+	hideElements(headerMoleContainer, deviceDecider, deductPointsPara, ...keys);
+	showElements(main);
+	updateDeviceDisplay('tap');
+	body.removeEventListener('keypress', handleKeypress);
+	moles.forEach((mole) => {
+		mole.addEventListener('click', handleMoleClick);
+	});
+};
+
+const setUpGameForKeyboard = () => {
+	hideElements(headerMoleContainer, deviceDecider);
+	showElements(main, deductPointsPara, ...keys);
+	updateDeviceDisplay('keyboard');
+	moles.forEach((mole) => {
+		mole.removeEventListener('click', handleMoleClick);
+	});
+	body.addEventListener('keypress', handleKeypress);
+};
+
 const endGame = (intervalID) => {
-	gameOverHeader.classList.remove('hidden');
-	gamePlayingScoreDisplay.classList.add('hidden');
-	gameOverDisplay.innerText = score;
+	hideElements(gamePlayingScoreDisplay);
+	showElements(gameOverHeader);
+	updateDisplay(gameOverDisplay, score);
 	startBtn.disabled = false;
 	isGameOver = true;
 	clearInterval(intervalID);
 	resetMoles(moles);
-	// show game over!
-};
-
-const scrollToBottom = () => {
-	window.scrollTo(0, body.scrollHeight);
 };
 
 const startGame = () => {
@@ -200,17 +144,57 @@ const startGame = () => {
 	startBtn.disabled = true;
 	isGameOver = false;
 	score = 0;
-	updateScoreDisplay(score);
+	updateDisplay(scoreDisplay, score);
 	const intervalID = setInterval(showMoles, 500, moles);
 	setTimeout(() => {
 		endGame(intervalID);
 	}, gameTime);
 };
 
+// EVENT HANDLERS
+
+const handleHowToPlayBtnClick = () => {
+	hideElements(howToPlayBtnContainer);
+	showElements(howToPlaySection);
+};
+
+const handleSwapBtnClick = () => (device === 'tap' ? setUpGameForKeyboard() : setUpGameForMobile());
+
+const handleMobileBtnClick = () => {
+	setUpGameForMobile();
+};
+
+const handleKeyboardBtnClick = () => {
+	setUpGameForKeyboard();
+};
+
+const handleKeypress = (e) => {
+	if (moleKeys.includes(e.key)) {
+		const moleToWhack = document.querySelector(`#${e.key}`);
+		const key = moleToWhack.querySelector('.key');
+		if (checkMoleIsShowing(moleToWhack)) {
+			whackMole(moleToWhack);
+		} else if (!isGameOver) {
+			score--;
+			updateDisplay(scoreDisplay, score);
+		}
+		pressKey(key);
+	}
+};
+
+const handleMoleClick = (e) => {
+	const moleToWhack = e.target.closest('.mole-container');
+	checkMoleIsShowing(moleToWhack) ? whackMole(moleToWhack) : '';
+};
+
 const handleStartBtnClick = () => {
 	startGame();
 };
 
+// EVENT LISTENERS
+
+mobileBtn.addEventListener('click', handleMobileBtnClick);
+keyboardBtn.addEventListener('click', handleKeyboardBtnClick);
 howToPlayBtn.addEventListener('click', handleHowToPlayBtnClick);
-swapDeviceBtn.addEventListener('click', handleSwapBtnClick);
 startBtn.addEventListener('click', handleStartBtnClick);
+swapDeviceBtn.addEventListener('click', handleSwapBtnClick);
