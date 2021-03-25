@@ -14,6 +14,7 @@ const body = document.body;
 const deviceDecider = document.querySelector('.device-decider');
 const mobileBtn = document.querySelector('#mobileBtn');
 const keyboardBtn = document.querySelector('#keyboardBtn');
+const headerMoleContainer = document.querySelector('.header__mole-container');
 const gamePlayingScoreDisplay = document.querySelector('.game-playing-score');
 const scoreDisplay = document.querySelector('#scoreDisplay');
 const deviceDisplay = document.querySelector('#deviceDisplay');
@@ -30,16 +31,22 @@ const gameOverDisplay = document.querySelector('#gameOverDisplay');
 const moles = document.querySelectorAll('.mole-container');
 const keys = document.querySelectorAll('.key');
 
-const showHowToPlaySection = () => {
-	howToPlaySection.classList.remove('hidden');
+const hideElements = (...args) => {
+	args.forEach((arg) => {
+		arg.classList.add('hidden');
+	});
+};
+
+const showElements = (...args) => {
+	args.forEach((arg) => {
+		arg.classList.remove('hidden');
+	});
 };
 
 const handleHowToPlayBtnClick = () => {
-	howToPlayBtnContainer.classList.add('hidden');
-	showHowToPlaySection();
+	hideElements(howToPlayBtnContainer);
+	showElements(howToPlaySection);
 };
-
-howToPlayBtn.addEventListener('click', handleHowToPlayBtnClick);
 
 const handleSwapBtnClick = () => {
 	if (device === 'tap/click') {
@@ -49,9 +56,8 @@ const handleSwapBtnClick = () => {
 	}
 };
 
-swapDeviceBtn.addEventListener('click', handleSwapBtnClick);
-
 const setUpGameForMobile = () => {
+	hideElements(headerMoleContainer);
 	device = 'tap/click';
 	deviceDisplay.innerText = device;
 	main.classList.remove('hidden');
@@ -72,6 +78,7 @@ const handleMobileBtnClick = () => {
 };
 
 const setUpGameForKeyboard = () => {
+	hideElements(headerMoleContainer);
 	device = 'keyboard';
 	deviceDisplay.innerText = device;
 	deviceSpan.innerText = 'whack its key on your keyboard';
@@ -187,11 +194,9 @@ const scrollToBottom = () => {
 };
 
 const startGame = () => {
-	gameOverHeader.classList.add('hidden');
-	gamePlayingScoreDisplay.classList.remove('hidden');
+	showElements(gamePlayingScoreDisplay, howToPlayBtnContainer);
+	hideElements(gameOverHeader, howToPlaySection);
 	scrollToBottom();
-	howToPlayBtnContainer.classList.remove('hidden');
-	howToPlaySection.classList.add('hidden');
 	startBtn.disabled = true;
 	isGameOver = false;
 	score = 0;
@@ -206,4 +211,6 @@ const handleStartBtnClick = () => {
 	startGame();
 };
 
+howToPlayBtn.addEventListener('click', handleHowToPlayBtnClick);
+swapDeviceBtn.addEventListener('click', handleSwapBtnClick);
 startBtn.addEventListener('click', handleStartBtnClick);

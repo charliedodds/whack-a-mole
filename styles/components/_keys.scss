@@ -1,0 +1,26 @@
+.mole-container {
+	.key {
+		background-color: #efefef;
+		text-align: center;
+		font-size: 1.25rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 80%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 50px;
+		height: 50px;
+		border-radius: 5px;
+		border: 0;
+		box-shadow: 0 6px 0 6px #adadad;
+		&.pressed {
+			top: calc(80% + 4px);
+			box-shadow: 0 2px 0 6px #adadad;
+		}
+		&.hidden {
+			display: none;
+		}
+	}
+}

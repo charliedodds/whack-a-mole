@@ -367,29 +367,44 @@ div {
 
 body {
   background-color: #24471e;
-  padding: 1rem;
 }
 
-header {
+.header {
+  max-height: 100vh;
+  overflow-y: hidden;
   text-align: center;
 }
-header h1 {
+.header h1 {
   margin: 3rem 0 2rem;
 }
-header span {
+.header span {
   display: block;
+}
+.header .header__mole-container {
+  margin-top: 2rem;
+}
+.header .header__mole-container img {
+  width: 50%;
 }
 
 @media (min-width: 299.98px) {
-  header .device-decider span {
+  .header .device-decider span {
     display: inline;
   }
 }
 @media (min-width: 401.98px) {
-  header span {
+  .header span {
     display: inline;
   }
 }
+.moles-wrapper {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
 button {
   cursor: pointer;
   display: inline-block;
@@ -434,18 +449,6 @@ button:disabled {
   margin: 1rem 0;
 }
 
-.hidden {
-  display: none;
-}
-
-.moles-wrapper {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr 1fr 1fr;
-  margin: 0 auto;
-  max-width: 500px;
-}
-
 .mole-container {
   margin-bottom: 50px;
   position: relative;
@@ -453,9 +456,11 @@ button:disabled {
 .mole-container img {
   width: 100%;
 }
+
 .mole-container .hole {
   transform: translateY(61%);
 }
+
 .mole-container .mole {
   position: absolute;
   left: 50%;
@@ -467,9 +472,11 @@ button:disabled {
 .mole-container.showing .mole {
   transform: translate(-50%, -45%);
 }
+
 .mole-container .grass {
   position: relative;
 }
+
 .mole-container .key {
   background-color: #efefef;
   text-align: center;
@@ -492,6 +499,10 @@ button:disabled {
   box-shadow: 0 2px 0 6px #adadad;
 }
 .mole-container .key.hidden {
+  display: none;
+}
+
+.hidden {
   display: none;
 }
 

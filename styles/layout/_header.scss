@@ -1,4 +1,6 @@
-header {
+.header {
+	max-height: 100vh;
+	overflow-y: hidden;
 	text-align: center;
 	h1 {
 		margin: 3rem 0 2rem;
@@ -6,10 +8,16 @@ header {
 	span {
 		display: block;
 	}
+	.header__mole-container {
+		margin-top: 2rem;
+		img {
+			width: 50%;
+		}
+	}
 }
 
 @media (min-width: 299.98px) {
-	header {
+	.header {
 		.device-decider {
 			span {
 				display: inline;
@@ -19,7 +27,7 @@ header {
 }
 
 @media (min-width: 401.98px) {
-	header {
+	.header {
 		span {
 			display: inline;
 		}

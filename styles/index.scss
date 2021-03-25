@@ -24,65 +24,12 @@
 @import './components/how-to-play-btn-container';
 @import './components/how-to-play';
 @import './components/info';
+@import './components/mole-container';
+@import './components/hole';
 @import './components/mole';
+@import './components/grass';
+@import './components/keys';
 
 // themes
 
 @import './themes/theme';
-
-.moles-wrapper {
-	display: grid;
-	gap: 1rem;
-	grid-template-columns: 1fr 1fr 1fr;
-	margin: 0 auto;
-	max-width: 500px;
-}
-
-.mole-container {
-	margin-bottom: 50px;
-	position: relative;
-	img {
-		width: 100%;
-	}
-	.hole {
-		transform: translateY(61%);
-	}
-	.mole {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		display: block;
-		transition: all 200ms cubic-bezier(0, 0, 0.5, 1);
-		width: 60%;
-	}
-	&.showing .mole {
-		transform: translate(-50%, -45%);
-	}
-	.grass {
-		position: relative;
-	}
-	.key {
-		background-color: #efefef;
-		text-align: center;
-		font-size: 1.25rem;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		position: absolute;
-		top: 80%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 50px;
-		height: 50px;
-		border-radius: 5px;
-		border: 0;
-		box-shadow: 0 6px 0 6px #adadad;
-		&.pressed {
-			top: calc(80% + 4px);
-			box-shadow: 0 2px 0 6px #adadad;
-		}
-		&.hidden {
-			display: none;
-		}
-	}
-}
