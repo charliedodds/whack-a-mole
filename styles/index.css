@@ -369,23 +369,64 @@ header {
   text-align: center;
 }
 header h1 {
-  margin: 1rem 0;
+  margin: 2rem 0;
+}
+header span {
+  display: block;
 }
 
-.instructions {
+@media (min-width: 299.98px) {
+  header .device-decider span {
+    display: inline;
+  }
+}
+@media (min-width: 401.98px) {
+  header span {
+    display: inline;
+  }
+}
+button {
+  cursor: pointer;
+  display: inline-block;
+  margin: auto;
+  background-color: #efefef22;
+  border: 1px solid #efefef;
+  border-radius: 12px;
+  color: inherit;
+  padding: 1rem 2rem;
+  margin: 2rem;
+}
+
+button:disabled {
+  background-color: transparent;
+  color: #efefef22;
+  border-color: #efefef22;
+}
+
+.how-to-play-btn-container {
+  text-align: center;
+}
+
+.how-to-play {
   margin: 0 1rem;
   text-align: center;
 }
-.instructions h2 {
+.how-to-play h2 {
   margin: 1rem 0;
 }
-.instructions p {
+.how-to-play p {
   margin: 1rem 0;
 }
 
-button {
-  display: inline-block;
-  margin: auto;
+.info {
+  margin: 0 1rem;
+  text-align: center;
+}
+.info h3 {
+  margin: 2rem 0 1rem;
+}
+.info p {
+  margin: 1rem 0;
 }
 
 .hidden {

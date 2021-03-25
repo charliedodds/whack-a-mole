@@ -1,6 +1,27 @@
 header {
 	text-align: center;
 	h1 {
-		margin: 1rem 0;
+		margin: 2rem 0;
+	}
+	span {
+		display: block;
+	}
+}
+
+@media (min-width: 299.98px) {
+	header {
+		.device-decider {
+			span {
+				display: inline;
+			}
+		}
+	}
+}
+
+@media (min-width: 401.98px) {
+	header {
+		span {
+			display: inline;
+		}
 	}
 }

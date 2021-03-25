@@ -13,28 +13,42 @@ let device;
 const body = document.body;
 const deviceDecider = document.querySelector('.device-decider');
 const mobileBtn = document.querySelector('#mobileBtn');
-const desktopBtn = document.querySelector('#desktopBtn');
+const keyboardBtn = document.querySelector('#keyboardBtn');
 const scoreDisplay = document.querySelector('#scoreDisplay');
 const deviceDisplay = document.querySelector('#deviceDisplay');
+const howToPlaySection = document.querySelector('.how-to-play');
+const howToPlayBtnContainer = document.querySelector('.how-to-play-btn-container');
+const howToPlayBtn = document.querySelector('#howToPlayBtn');
 const startBtn = document.querySelector('#start');
-const changeDeviceBtn = document.querySelector('#changeDevice');
+const swapDeviceBtn = document.querySelector('#swapDevice');
 const main = document.querySelector('main');
 const deviceSpan = document.querySelector('.device-span');
 const moles = document.querySelectorAll('.mole-container');
 const keys = document.querySelectorAll('.key');
 
-const handleChangeBtnClick = () => {
-	if (device === 'mobile') {
-		setUpGameForDesktop();
+const showHowToPlaySection = () => {
+	howToPlaySection.classList.remove('hidden');
+};
+
+const handleHowToPlayBtnClick = () => {
+	howToPlayBtnContainer.classList.add('hidden');
+	showHowToPlaySection();
+};
+
+howToPlayBtn.addEventListener('click', handleHowToPlayBtnClick);
+
+const handleSwapBtnClick = () => {
+	if (device === 'tap/click') {
+		setUpGameForKeyboard();
 	} else {
 		setUpGameForMobile();
 	}
 };
 
-changeDeviceBtn.addEventListener('click', handleChangeBtnClick);
+swapDeviceBtn.addEventListener('click', handleSwapBtnClick);
 
 const setUpGameForMobile = () => {
-	device = 'mobile';
+	device = 'tap/click';
 	deviceDisplay.innerText = device;
 	main.classList.remove('hidden');
 	deviceDecider.classList.add('hidden');
@@ -52,8 +66,8 @@ const handleMobileBtnClick = () => {
 	setUpGameForMobile();
 };
 
-const setUpGameForDesktop = () => {
-	device = 'desktop';
+const setUpGameForKeyboard = () => {
+	device = 'keyboard';
 	deviceDisplay.innerText = device;
 	deviceSpan.innerText = 'whack its key on your keyboard';
 	main.classList.remove('hidden');
@@ -67,12 +81,12 @@ const setUpGameForDesktop = () => {
 	body.addEventListener('keypress', handleKeypress);
 };
 
-const handleDesktopBtnClick = () => {
-	setUpGameForDesktop();
+const handleKeyboardBtnClick = () => {
+	setUpGameForKeyboard();
 };
 
 mobileBtn.addEventListener('click', handleMobileBtnClick);
-desktopBtn.addEventListener('click', handleDesktopBtnClick);
+keyboardBtn.addEventListener('click', handleKeyboardBtnClick);
 
 const getRandomNumber = (min, max) => Math.floor(Math.random() * max) + min;
 
@@ -160,7 +174,14 @@ const endGame = (intervalID) => {
 	console.log('game over');
 };
 
+const scrollToBottom = () => {
+	window.scrollTo(0, body.scrollHeight);
+};
+
 const startGame = () => {
+	scrollToBottom();
+	howToPlayBtnContainer.classList.remove('hidden');
+	howToPlaySection.classList.add('hidden');
 	startBtn.disabled = true;
 	isGameOver = false;
 	score = 0;

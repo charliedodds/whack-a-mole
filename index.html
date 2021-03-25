@@ -10,23 +10,30 @@
 	</head>
 	<body>
 		<header>
-			<h1>Whack-a-Mole!</h1>
+			<h1>
+				<span class="header__whack">Whack</span><span class="header__a">-a-</span
+				><span class="header__mole">Mole!</span>
+			</h1>
 			<section class="device-decider">
-				<h2>Which type of device are you playing on?</h2>
-				<p>I need to know so you can whack a mole by tapping the screen or pressing a key!</p>
-				<p>You can change this later if you need to.</p>
-				<button id="mobileBtn">mobile/tablet</button>
-				<button id="desktopBtn">desktop</button>
+				<h2>Choose your <span class="device-decider__mole-whacker">mole-whacker</span></h2>
+				<p>Don't worry, you can change this later if you need to.</p>
+				<button class="device-decider__button" id="mobileBtn">Tap/Click</button>
+				<button class="device-decider__button" id="keyboardBtn">Keyboard</button>
 			</section>
 		</header>
 		<main class="hidden">
-			<section class="instructions">
+			<section class="how-to-play">
 				<h2>How to play:</h2>
 				<p>When a mole pops up, <span class="device-span"></span> to send it back to it's hole.</p>
 				<p>Hit the start button to begin.</p>
-				<p>Score: <span id="scoreDisplay">0</span></p>
+			</section>
+			<section class="how-to-play-btn-container hidden">
+				<button id="howToPlayBtn">Wait, how do I play again?</button>
+			</section>
+			<section class="info">
 				<p>Currently playing on <span id="deviceDisplay"></span> mode.</p>
-				<button id="start">Start</button> <button id="changeDevice">change device</button>
+				<button id="start">Start</button> <button id="swapDevice">Swap mode</button>
+				<h3>Score: <span id="scoreDisplay">0</span></h3>
 			</section>
 			<section class="moles-wrapper">
 				<section id="q" class="mole-container">
